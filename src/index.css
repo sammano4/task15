@@ -644,3 +644,17 @@ a,
     box-shadow:
     0 12px 25px rgba(0,0,0,.35);
 }
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-btn:hover {
+  color: #00c3ff;
+}

@@ -60,14 +60,19 @@ export default function Home() {
         <Products />
       </section>
 
-      {/* About */}
-      <section id="about" className="container">
-        <About />
+      {/* Products */}
+      <section id="products" className="container">
+      <Products />
       </section>
 
       {/* Contact */}
       <section id="contact" className="container">
-        <Contact />
+      <Contact />
+      </section>
+
+      {/* About */}
+      <section id="about" className="container">
+      <About />
       </section>
     </>
   );
