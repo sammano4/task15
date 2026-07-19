@@ -60,11 +60,6 @@ export default function Home() {
         <Products />
       </section>
 
-      {/* Products */}
-      <section id="products" className="container">
-      <Products />
-      </section>
-
       {/* Contact */}
       <section id="contact" className="container">
       <Contact />

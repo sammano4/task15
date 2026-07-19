@@ -1,20 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import CartContext from "../context/CartContext";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   return (
     <div className="product-card">
-
       <Link to={`/products/${product.id}`}>
-
         <img
           src={product.image}
           alt={product.title}
         />
-
       </Link>
 
       <Link
@@ -30,11 +28,10 @@ export default function ProductCard({ product }) {
       </p>
 
       <h2 className="price">
-        ${product.price}
+        ₹ {(product.price * 85).toFixed(0)}
       </h2>
 
       <div className="product-buttons">
-
         <button
           className="btn"
           onClick={() => addToCart(product)}
@@ -42,12 +39,18 @@ export default function ProductCard({ product }) {
           Add To Cart
         </button>
 
-        <button className="buy-btn">
-          Buy Now
-        </button>
-
+        <Link to="/checkout">
+          <button
+  className="buy-btn"
+  onClick={() => {
+    addToCart(product);
+    navigate("/checkout");
+  }}
+>
+  Buy Now
+</button>
+        </Link>
       </div>
-
     </div>
   );
 }

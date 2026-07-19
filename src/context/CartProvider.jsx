@@ -1,12 +1,21 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import CartContext from "./CartContext";
-import { cartReducer, initialState } from "../reducer/cartReducer";
+import { cartReducer } from "../reducer/cartReducer";
 
 export default function CartProvider({ children }) {
+
   const [cart, dispatch] = useReducer(
     cartReducer,
-    initialState
+    [],
+    () => {
+      const savedCart = localStorage.getItem("cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    }
   );
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
     dispatch({
@@ -36,6 +45,14 @@ export default function CartProvider({ children }) {
     });
   };
 
+  const clearCart = () => {
+    localStorage.removeItem("cart");
+
+    dispatch({
+      type: "CLEAR",
+    });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -44,6 +61,7 @@ export default function CartProvider({ children }) {
         removeFromCart,
         increaseQuantity,
         decreaseQuantity,
+        clearCart,
       }}
     >
       {children}

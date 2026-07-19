@@ -1,62 +1,123 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    state: "",
+    address: "",
+    message: "",
+  });
 
-  const nameRef = useRef();
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const [message,setMessage]=useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleSubmit=()=>{
+    alert("✅ Thank you! Your message has been sent.");
 
-    if(nameRef.current.value===""){
+    setForm({
+      name: "",
+      mobile: "",
+      email: "",
+      state: "",
+      address: "",
+      message: "",
+    });
+  };
 
-      setMessage("Please Enter Name");
+  return (
+    <section className="container">
+      <div className="contact-box">
+        <h1>📞 Contact Us</h1>
 
-      nameRef.current.focus();
+        <p
+          style={{
+            textAlign: "center",
+            marginBottom: "25px",
+          }}
+        >
+          We'd love to hear from you.
+          Send your message and we'll get back
+          to you soon.
+        </p>
 
-      return;
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-    }
+          <input
+            type="tel"
+            name="mobile"
+            placeholder="Mobile Number"
+            value={form.mobile}
+            onChange={handleChange}
+            required
+          />
 
-    setMessage("Form Submitted Successfully ✅");
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
-    nameRef.current.value="";
+          <select
+            name="state"
+            value={form.state}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select State</option>
+            <option>Tamil Nadu</option>
+            <option>Kerala</option>
+            <option>Karnataka</option>
+            <option>Andhra Pradesh</option>
+            <option>Telangana</option>
+            <option>Maharashtra</option>
+            <option>Delhi</option>
+          </select>
 
-  }
+          <textarea
+            name="address"
+            placeholder="Address"
+            rows="4"
+            value={form.address}
+            onChange={handleChange}
+            required
+          />
 
-  return(
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            value={form.message}
+            onChange={handleChange}
+            required
+          />
 
-    <div className="container">
-
-      <div className="glass" style={{padding:40}}>
-
-      <h1>Contact Us</h1>
-
-      <br/>
-
-      <input
-      type="text"
-      placeholder="Enter Name"
-      ref={nameRef}
-      />
-
-      <br/><br/>
-
-      <button
-      className="btn"
-      onClick={handleSubmit}
-      >
-      Submit
-      </button>
-
-      <br/><br/>
-
-      <h3>{message}</h3>
-
+          <button
+            type="submit"
+            className="btn"
+          >
+            Send Message
+          </button>
+        </form>
       </div>
-
-    </div>
-
-  )
-
+    </section>
+  );
 }

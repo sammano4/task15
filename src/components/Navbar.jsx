@@ -1,8 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import CartContext from "../context/CartContext";
 
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { cart } = useContext(CartContext);
+
+const totalItems = cart.reduce(
+  (total, item) => total + item.quantity,
+  0
+);
 
   const scrollToSection = (id) => {
     if (location.pathname !== "/") {
@@ -53,6 +61,18 @@ export default function Navbar() {
 
 <li>
   <Link to="/profile">Profile</Link>
+</li>
+
+<li className="cart-nav">
+  <Link to="/cart" className="cart-link">
+    🛒 Cart
+
+    {totalItems > 0 && (
+      <span className="cart-badge">
+        {totalItems}
+      </span>
+    )}
+  </Link>
 </li>
       </ul>
     </nav>
